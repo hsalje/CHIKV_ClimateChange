@@ -19,12 +19,12 @@ library(RColorBrewer)
 ### Datasets #####
 #################
 
-aegtoday<-raster("~/Documents/R/Grants/CEPI/CHIKV_ClimateChange/MosqPics/SadieRyanPics/Ryan2019Paper/TCurMean30Sum_97ae.tif")
-albtoday<-raster("~/Documents/R/Grants/CEPI/CHIKV_ClimateChange/MosqPics/SadieRyanPics/Ryan2019Paper/TCurMean30Sum_97al.tif")
-aeg26<-raster("~/Documents/R/Grants/CEPI/CHIKV_ClimateChange/MosqPics/SadieRyanPics/Ryan2019Paper/rcp26_2050_HE_sum_97ae.tif")
-aeg85<-raster("~/Documents/R/Grants/CEPI/CHIKV_ClimateChange/MosqPics/SadieRyanPics/Ryan2019Paper/rcp85_2050_HE_sum_97ae.tif")
-alb26<-raster("~/Documents/R/Grants/CEPI/CHIKV_ClimateChange/MosqPics/SadieRyanPics/Ryan2019Paper/rcp26_2050_HE_sum_97al.tif")
-alb85<-raster("~/Documents/R/Grants/CEPI/CHIKV_ClimateChange/MosqPics/SadieRyanPics/Ryan2019Paper/rcp85_2050_HE_sum_97al.tif")
+aegtoday<-raster("TCurMean30Sum_97ae.tif")
+albtoday<-raster("TCurMean30Sum_97al.tif")
+aeg26<-raster("rcp26_2050_HE_sum_97ae.tif")
+aeg85<-raster("rcp85_2050_HE_sum_97ae.tif")
+alb26<-raster("rcp26_2050_HE_sum_97al.tif")
+alb85<-raster("rcp85_2050_HE_sum_97al.tif")
 
 
 ### Calculate max of albopictus and aegypti in each location
@@ -48,7 +48,7 @@ rm(alb26)
 rm(alb85)
 
 ### Bring in population distribution
-pop2050ssp2<-nc_open('~/Documents/R/Grants/CEPI/CHIKV_ClimateChange/MosqPics/SadieRyanPics/ISIMIPData/population_ssp2soc_2.5min_annual_2006-2100.nc4')
+pop2050ssp2<-nc_open('population_ssp2soc_2.5min_annual_2006-2100.nc4')
 fillvalue <- ncatt_get(pop2050ssp2, "number_of_people", "_FillValue")
 lon <- ncvar_get(pop2050ssp2, "lon")
 lat <- ncvar_get(pop2050ssp2, "lat", verbose = F)
@@ -75,7 +75,7 @@ mapssp2_2025 <- raster(t(pop.array), xmn=min(lon), xmx=max(lon), ymn=min(lat), y
 
 nc_close(pop2050ssp2)
 
-pop2050ssp5<-nc_open('~/Documents/R/Grants/CEPI/CHIKV_ClimateChange/MosqPics/SadieRyanPics/ISIMIPData/population_ssp5soc_2.5min_annual_2006-2100.nc4')
+pop2050ssp5<-nc_open('population_ssp5soc_2.5min_annual_2006-2100.nc4')
 fillvalue <- ncatt_get(pop2050ssp5, "number_of_people", "_FillValue")
 lon <- ncvar_get(pop2050ssp5, "lon")
 lat <- ncvar_get(pop2050ssp5, "lat", verbose = F)
@@ -111,8 +111,8 @@ EstCountries<-world[match(uniqueCountries,as.character(world@data$NAME_SORT)),]
 
 
 ### Demography of countries
-demogDat<-read.csv("~/Documents/R/Grants/CEPI/CHIKV_ClimateChange/MosqPics/SadieRyanPics/DemographyData/wcde_data_NAMESMATCHED.csv")
-originalEstimates<-read.csv("~/Documents/R/Grants/CEPI/CHIKV_ClimateChange/Data/epiStatusByCountry.csv")[,-1]
+demogDat<-read.csv("wcde_data_NAMESMATCHED.csv")
+originalEstimates<-read.csv("epiStatusByCountry.csv")[,-1]
 originalEstimates<-originalEstimates[match(uniqueCountries,originalEstimates[,1]),]
 
 ### Age categories and estimates of disease by age
